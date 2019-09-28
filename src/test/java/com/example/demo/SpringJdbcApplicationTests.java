@@ -19,9 +19,13 @@ import com.example.dao.EmployeeDao;
 import com.example.model.Address;
 import com.example.model.Employee;
 
+/*
+ * Test class runs with Spring Runner
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringJdbcApplicationTests {
+	// Autowiring all the beans that are required in the test
 	@Autowired
 	ApplicationContext appCtxt;
 	@Autowired
