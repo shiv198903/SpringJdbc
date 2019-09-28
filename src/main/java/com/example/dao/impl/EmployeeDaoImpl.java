@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.example.dao.EmployeeDao;
@@ -15,10 +16,19 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Autowired
 	private JdbcTemplate jdbc;
+	
+	private static final class EmployeeMapper implements RowMapper<Employee>{
+
+		@Override
+		public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
+			return new Employee(rs.getString("id"), rs.getString("name"),rs.getString("addressid"));
+		}
+		
+	}
 
 	@Override
 	public Employee getById(String id) {
-		return jdbc.queryForObject("select id,name, addressid from employee where id=:id", this::mapRowToEmployee, id);
+		return jdbc.queryForObject("select id,name, addressid from employee where id=:id", new EmployeeMapper(), id);
 	}
 
 	@Override
