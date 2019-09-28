@@ -28,6 +28,9 @@ public class EmbeddedDBConfiguration {
 		return new AnnotationConfigApplicationContext(configClassName);
 	}
 
+	/*
+	 * Started an embedded database and Initialized it with some tables and data 
+	 */
 	@Bean
 	public DataSource dataSource() {
 		return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
